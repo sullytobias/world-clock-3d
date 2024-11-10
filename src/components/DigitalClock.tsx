@@ -37,28 +37,24 @@ const DigitalClock: FC<DigitalClockProps> = ({ timezone }) => {
         const hasChanged = prevChar !== char && index !== prevTimeChars.length -1; 
 
         return (
-          <motion.mesh
-            key={index}
-            initial={{ y: 0 }} 
-            animate={{
-              y: hasChanged ? 0 : -2, 
-              transition: {
-                type: "spring",
-                stiffness: 1000,
-                damping: 30, 
-              },
-            }}
-            exit={{ opacity: 0, y: 2 }} 
-            position={[index * 1.5, 0, 0]} 
-          >
-            <Text
-              fontSize={2}
-              anchorX="center"
-              anchorY="middle"
+            <motion.mesh
+                key={index}
+                initial={{ y: 0 }}
+                animate={{
+                    y: hasChanged ? 0 : -2,
+                    transition: {
+                        type: "spring",
+                        stiffness: 1000,
+                        damping: 30,
+                    },
+                }}
+                exit={{ opacity: 0, y: 2 }}
+                position={[index * 1.5, 0, 0]}
             >
-              {char}
-            </Text>
-          </motion.mesh>
+                <Text fontSize={2} anchorX="center" anchorY="middle">
+                    {char}
+                </Text>
+            </motion.mesh>
         );
       })}
     </group>

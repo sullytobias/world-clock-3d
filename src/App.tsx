@@ -23,9 +23,10 @@ const App = () => {
             }}
         >
             <CountrySelector onSelectCountry={setTimezone} />
+
             <Canvas>
                 <mesh position={[0, 0, 0]}>
-                    <sphereGeometry args={[5, 32, 32]} />
+                    <sphereGeometry args={[7, 32, 32]} />
                     <meshStandardMaterial side={DoubleSide} />
                 </mesh>
                 <Celestial timezone={timezone} />

@@ -39,31 +39,32 @@ const Celestial: FC<CelestialProps> = ({ timezone }) => {
             ? Math.max(0.5, 1.5 - Math.abs(hour - 12) * 0.05)
             : 0.3;
 
-        const horizonDistance = 1100; // Horizontal distance from sunrise to sunset
-
         const dayProgress = (hour - sunriseHour) / (sunsetHour - sunriseHour);
 
-        // Scale the sun's position based on screen width
-        const sunPositionX = (screenWidth / horizonDistance) * dayProgress;
+        const horizonDistance = screenWidth / 1000;
+        const sunPositionX = horizonDistance * dayProgress;
+
+        const maxArcHeight = 2;
+        const sunPositionY = Math.sin(dayProgress * Math.PI) * maxArcHeight;
 
         return {
             celestialColor,
             lightIntensity,
             sunPositionX,
+            sunPositionY,
         };
     };
 
-    const { celestialColor, lightIntensity, sunPositionX } = getLighting();
-
-    console.log(sunPositionX);
+    const { celestialColor, lightIntensity, sunPositionX, sunPositionY } =
+        getLighting();
 
     return (
         <motion.pointLight
             color={celestialColor}
-            position={[sunPositionX, 2, -3.5]}
-            castShadow
+            position={[sunPositionX, sunPositionY, -5.5]}
             animate={{
                 x: sunPositionX,
+                y: sunPositionY,
                 intensity: lightIntensity,
             }}
             transition={{

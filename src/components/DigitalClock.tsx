@@ -63,7 +63,7 @@ const DigitalClock: FC<DigitalClockProps> = ({ timezone }) => {
                         position={[index * charWidth, 0, 0]}
                     >
                         <Text
-                            font="/fonts/magnum.ttf"
+                            font="./fonts/magnum.ttf"
                             fontSize={fontSize > 3 ? 2.5 : fontSize}
                             anchorX="center"
                             anchorY="middle"

@@ -96,7 +96,7 @@ const TimezoneSelector: FC<TimezoneSelectorProps> = ({ onSelectCountry }) => {
                     >
                         {timezoneCities.map((country) => (
                             <div
-                                key={country.timezone}
+                                key={country.city}
                                 style={{
                                     backgroundColor: "#444",
                                     padding: "10px",

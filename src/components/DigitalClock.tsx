@@ -63,6 +63,7 @@ const DigitalClock: FC<DigitalClockProps> = ({ timezone }) => {
                         position={[index * charWidth, 0, 0]}
                     >
                         <Text
+                            font="/fonts/magnum.ttf"
                             fontSize={fontSize > 3 ? 2.5 : fontSize}
                             anchorX="center"
                             anchorY="middle"
@@ -72,12 +73,6 @@ const DigitalClock: FC<DigitalClockProps> = ({ timezone }) => {
                         >
                             {char}
                         </Text>
-                        <meshStandardMaterial
-                            attach="material"
-                            emissive="#FF5733"
-                            metalness={0.5}
-                            roughness={0.2}
-                        />
                     </motion.mesh>
                 );
             })}

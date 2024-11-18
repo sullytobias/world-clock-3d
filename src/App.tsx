@@ -6,8 +6,9 @@ import CountrySelector from "./components/CountrySelector";
 import DigitalClock from "./components/DigitalClock";
 import Celestial from "./components/Celestial";
 
-import "./index.css";
 import { DoubleSide } from "three";
+
+import "./index.css";
 
 const App = () => {
     const [timezone, setTimezone] = useState("America/New_York");

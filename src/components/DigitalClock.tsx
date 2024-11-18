@@ -15,7 +15,6 @@ const DigitalClock: FC<DigitalClockProps> = ({ timezone }) => {
     const { size } = useThree();
     const isMobile = size.width <= 768;
 
-    const multi = isMobile ? 1.2 : 1.5;
     const fontSize = Math.min(size.width, size.height) / (isMobile ? 260 : 240);
 
     useEffect(() => {

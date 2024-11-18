@@ -8,6 +8,7 @@ type CelestialProps = {
 
 const Celestial: FC<CelestialProps> = ({ timezone }) => {
     const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+    const [lightIntensity, setLightIntensity] = useState(1);
 
     useEffect(() => {
         const handleResize = () => {
@@ -35,7 +36,7 @@ const Celestial: FC<CelestialProps> = ({ timezone }) => {
 
         const celestialColor = isDaytime ? "#FFD700" : "#FFFACD";
 
-        const lightIntensity = isDaytime
+        const computedLightIntensity = isDaytime
             ? Math.max(0.5, 1.5 - Math.abs(hour - 12) * 0.05)
             : 0.3;
 
@@ -49,35 +50,48 @@ const Celestial: FC<CelestialProps> = ({ timezone }) => {
 
         return {
             celestialColor,
-            lightIntensity,
+            lightIntensity: computedLightIntensity,
             sunPositionX,
             sunPositionY,
         };
     };
 
-    const { celestialColor, lightIntensity, sunPositionX, sunPositionY } =
-        getLighting();
+    const {
+        celestialColor,
+        lightIntensity: targetIntensity,
+        sunPositionX,
+        sunPositionY,
+    } = getLighting();
+
+    useEffect(() => {
+        const intensityInterval = setInterval(() => {
+            setLightIntensity((current) =>
+                Math.abs(current - targetIntensity) < 0.01
+                    ? targetIntensity
+                    : current + (targetIntensity - current) * 0.1
+            );
+        }, 100);
+        return () => clearInterval(intensityInterval);
+    }, [targetIntensity]);
 
     return (
-        <motion.pointLight
-            color={celestialColor}
-            position={[sunPositionX, sunPositionY, -5.5]}
-            animate={{
-                x: sunPositionX,
-                y: sunPositionY,
-                intensity: lightIntensity,
-            }}
-            transition={{
-                intensity: {
-                    type: "spring",
-                    duration: 1.5,
-                },
-                position: {
-                    type: "spring",
-                    duration: 1.5,
-                },
-            }}
-        />
+        <motion.group>
+            <motion.pointLight
+                color={celestialColor}
+                position={[sunPositionX, sunPositionY, -5.5]}
+                animate={{
+                    x: sunPositionX,
+                    y: sunPositionY,
+                }}
+                transition={{
+                    position: {
+                        type: "spring",
+                        duration: 1.5,
+                    },
+                }}
+                intensity={lightIntensity}
+            />
+        </motion.group>
     );
 };
 
